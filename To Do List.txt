@@ -1,11 +1,12 @@
 Hardware:
-- prototype Arm gedeelte aan elkaar
+- prototype Arm gedeelte aan elkaar ✔
 - Vaste lengte bedenken voor bezemsteel
-- 3.5 Jack plug solderen aan motor + aansluiten via audiokabel aan Arduino
+- 3.5 Jack plug solderen aan motor + aansluiten via audiokabel aan Arduino ✔
 - Prototype bevestiging voet 
 - PETG bestellen 
 - 12 X printen
 - Runen alfabet op elke metronoom als identificatie
+- 3D modellen iets bijgewerkt ✔
 
 Shopping List Hardware:
 

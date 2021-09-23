@@ -6,10 +6,7 @@
 
 
 #include <Ramp.h>
-#include <Adafruit_PWMServoDriver.h>
 #include <Servo.h>
-
-Adafruit_PWMServoDriver servoShield = Adafruit_PWMServoDriver();
 
 const int PWM_MIN = 75;
 const int PWM_MAX = 550;
@@ -32,9 +29,6 @@ Servo myservo;
 
 void setup() {
   Serial.begin(115200);
-
-  servoShield.begin();
-  servoShield.setPWMFreq(50);
   
   myservo.attach(9);
 
@@ -67,9 +61,6 @@ void loop() {
       }
 
       myservo.write(int(servo[i].posRamp.getValue()));
-      
-//      int PWM = map(servo[i].posRamp.getValue(), 0, 180, PWM_MIN, PWM_MAX);
-//      servoShield.setPWM(i, 0, PWM);
     }
   }
 }
@@ -99,45 +90,6 @@ void parseMsgFromMax() {
     }
     else {
       servo[ID].posRamp.pause();
-    }
-  }
-}
-
-
-
-
-void test_run() {
-  int delay_time = 1000;
-  boolean control_PWM = true; // pwm or us
-
-  // specs tinytronics:
-  const int USMIN = 500; // microseconds
-  const int USMAX = 2400;
-
-  for (int s = 0; s < numServo; s++) {
-
-    if (control_PWM) {
-      for (int i = PWM_MIN; i < PWM_MAX; i++) {
-        servoShield.setPWM(s, 0, i);
-      }
-      delay(delay_time);
-
-      for (int i = PWM_MAX; i >= PWM_MIN; i--) {
-        servoShield.setPWM(s, 0, i);
-      }
-      delay(delay_time);
-    }
-
-    else {
-      for (int i = USMIN; i < USMAX; i++) {
-        servoShield.writeMicroseconds(s, i);
-      }
-      delay(delay_time);
-
-      for (int i = USMAX; i >= USMIN; i--) {
-        servoShield.writeMicroseconds(s, i);
-      }
-      delay(delay_time);
     }
   }
 }

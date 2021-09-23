@@ -12,6 +12,7 @@ Adafruit_PWMServoDriver servoShield = Adafruit_PWMServoDriver();
 
 const int PWM_MIN = 75;
 const int PWM_MAX = 550;
+const int SERVO_FREQ = 50; // to do: set this to frequency specific for servo?
 
 int ANGLE_MIN = 0;
 int ANGLE_MAX = 180;
@@ -31,7 +32,7 @@ void setup() {
   Serial.begin(115200);
 
   servoShield.begin();
-  servoShield.setPWMFreq(50);
+  servoShield.setPWMFreq(SERVO_FREQ);
   
   for (int i = 0; i < numServo; i++) {
     servo[i].freq = 1.0;
@@ -61,6 +62,7 @@ void loop() {
         servo[i].posToggle = !servo[i].posToggle;
       }
       
+//      Serial.println(servo[i].posRamp.getValue());
       int PWM = map(servo[i].posRamp.getValue(), 0, 180, PWM_MIN, PWM_MAX);
       servoShield.setPWM(i, 0, PWM);
     }

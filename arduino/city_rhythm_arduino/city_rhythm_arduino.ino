@@ -7,7 +7,6 @@
 
 #include <Ramp.h>
 #include <Adafruit_PWMServoDriver.h>
-#include <Servo.h>
 
 Adafruit_PWMServoDriver servoShield = Adafruit_PWMServoDriver();
 
@@ -28,16 +27,12 @@ struct _Servo {
 
 _Servo servo[numServo];
 
-Servo myservo;
-
 void setup() {
   Serial.begin(115200);
 
   servoShield.begin();
   servoShield.setPWMFreq(50);
   
-  myservo.attach(9);
-
   for (int i = 0; i < numServo; i++) {
     servo[i].freq = 1.0;
     servo[i].posRamp.go(ANGLE_MIN);
@@ -65,11 +60,9 @@ void loop() {
         servo[i].posRamp.go(angle, ramp_duration, LINEAR);
         servo[i].posToggle = !servo[i].posToggle;
       }
-
-      myservo.write(int(servo[i].posRamp.getValue()));
       
-//      int PWM = map(servo[i].posRamp.getValue(), 0, 180, PWM_MIN, PWM_MAX);
-//      servoShield.setPWM(i, 0, PWM);
+      int PWM = map(servo[i].posRamp.getValue(), 0, 180, PWM_MIN, PWM_MAX);
+      servoShield.setPWM(i, 0, PWM);
     }
   }
 }

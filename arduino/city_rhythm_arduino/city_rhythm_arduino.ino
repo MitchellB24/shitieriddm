@@ -12,8 +12,8 @@ Adafruit_PWMServoDriver servoShield = Adafruit_PWMServoDriver();
 
 const int numServo = 2;
 const int PWM_VAL[numServo][2] = {  {75, 550}, // servo {minPWM, maxPWM}
-                                    {100, 450} 
-                                 };
+  {100, 450}
+};
 const int SERVO_FREQ = 50;       // To do: set this to frequency specific for servo?
 const int ANGLE_MIN = 0;
 const int ANGLE_MAX = 180;
@@ -44,14 +44,17 @@ void setup() {
     servo[i].freq = 1.0;
     servo[i].posRamp.go(ANGLE_MIN);
     servo[i].posRamp.pause();
+    servoShield.setPWM(i, 0, PWM_VAL[i][0]);
   }
-//  testRun();
+  
+//  delay(500); // wait for a bit here?
+//  testRun(); // uncomment to do test run
 }
 
 
 void loop() {
   // Parse serial messages from Max
-  // Every message starts with 1 byte specifying the type
+  // Every message starts with 1 byte specifying its type
   if (Serial.available() > 0) {
     int msgType = Serial.read();
 
@@ -83,7 +86,7 @@ void loop() {
         int angle;
         servo[i].Direction ? angle = ANGLE_MAX : angle = ANGLE_MIN;
 
-        // 2. If sync or stop, wait for servo to arrive at min angle
+        // 2. If sync or stop, and servo is at min angle: stop moving
         if ((syncServos || stopServos) && angle == ANGLE_MAX) {
           if (!servoPaused) {
             servo[i].posRamp.pause();
@@ -114,7 +117,7 @@ void loop() {
 
       for (int i = 0; i < numServo; i++) {
         servo[i].posRamp.resume();
-//        Serial.println(servo[i].Direction);
+        //        Serial.println(servo[i].Direction);
       }
     }
   }
@@ -124,7 +127,7 @@ void parseServoMsg() {
   /*
     Servo message: 3 bytes
      - first byte is servo ID
-     - second two bytes together is servo frequency
+     - second two bytes are servo frequency
   */
 
   char bytes[3];
@@ -153,11 +156,11 @@ void parseServoMsg() {
 }
 
 void setServo(int ID, float frequency) {
-//  Serial.print("Servo ");
-//  Serial.print(ID);
-//  Serial.print(", ");
-//  Serial.println(frequency);
-  
+  //  Serial.print("Servo ");
+  //  Serial.print(ID);
+  //  Serial.print(", ");
+  //  Serial.println(frequency);
+
   if (frequency > 0.0) {
     servo[ID].freq = frequency;
 
@@ -180,15 +183,17 @@ void setServo(int ID, float frequency) {
 
 
 void testRun() {
+  // Function to test min and max PWM values for every servo
+  // It cycles through each servo, toggling between min and max PWM, on a loop
+
   int delay_time = 1000;
   boolean control_PWM = true; // pwm or us
 
-  // specs tinytronics:
+  // specs Tinytronics:
   const int USMIN = 500; // microseconds
   const int USMAX = 2400;
 
   while (true) {
-    Serial.println("HI");
     for (int i = 0; i < numServo; i++) {
 
       if (control_PWM) {

@@ -1,7 +1,7 @@
 /*
- * Ramp library:      https://github.com/siteswapjuggler/RAMP
- * Adafruit shield:   https://learn.adafruit.com/adafruit-16-channel-pwm-slash-servo-shield/using-the-adafruit-library
- * tinytronics servo: https://www.tinytronics.nl/shop/nl/mechanica-en-actuatoren/motoren/servomotoren/mg996r-servo
+   Ramp library:      https://github.com/siteswapjuggler/RAMP
+   Adafruit shield:   https://learn.adafruit.com/adafruit-16-channel-pwm-slash-servo-shield/using-the-adafruit-library
+   tinytronics servo: https://www.tinytronics.nl/shop/nl/mechanica-en-actuatoren/motoren/servomotoren/mg996r-servo
 */
 
 
@@ -10,98 +10,178 @@
 
 Adafruit_PWMServoDriver servoShield = Adafruit_PWMServoDriver();
 
-const int PWM_MIN = 75;
-const int PWM_MAX = 550;
+const int numServo = 2;
+
+const int PWM_MIN[numServo] = {75, 100};
+const int PWM_MAX[numServo] = {550, 450};
+
 const int SERVO_FREQ = 50; // to do: set this to frequency specific for servo?
 
-int ANGLE_MIN = 0;
-int ANGLE_MAX = 180;
+const int ANGLE_MIN = 0;
+const int ANGLE_MAX = 180;
 
-const int numServo = 1;
 
 struct _Servo {
   float freq;     // Hz
-  boolean posToggle;
-
+  boolean Direction;
   ramp posRamp;
 };
 
 _Servo servo[numServo];
+
+enum messageType { MSG_STOP = 253, MSG_SYNC, MSG_SERVO };
+boolean syncServos = false;
+boolean stopServos = false;
+
+
+//-------------------------------------------//
 
 void setup() {
   Serial.begin(115200);
 
   servoShield.begin();
   servoShield.setPWMFreq(SERVO_FREQ);
-  
+
   for (int i = 0; i < numServo; i++) {
     servo[i].freq = 1.0;
     servo[i].posRamp.go(ANGLE_MIN);
     servo[i].posRamp.pause();
   }
+//  testRun();
 }
 
 
 void loop() {
-  if (Serial.available() >= 3) {
-    parseMsgFromMax();
+  // Parse serial messages from Max
+  // Every message starts with 1 byte specifying the type
+  if (Serial.available() > 0) {
+    int msgType = Serial.read();
+
+    if (msgType == MSG_SERVO) {
+      parseServoMsg();
+    }
+    else if (msgType == MSG_SYNC) {
+      Serial.println("sync message");
+      syncServos = true;
+    }
+    else if (msgType == MSG_STOP) {
+      Serial.println("stop message");
+      stopServos = true;
+    }
   }
+
+  boolean allPaused = true;
 
   for (int i = 0; i < numServo; i++) {
     // isPaused() seems to be reversed?
-    if (servo[i].posRamp.isPaused()) {
+    boolean servoPaused = !servo[i].posRamp.isPaused();
+
+    if (!servoPaused) {
+      allPaused = false;
       servo[i].posRamp.update();
-  
+
+      // 1. Is the ramp finished? (the servo arrived at min or max angle)
       if (servo[i].posRamp.isFinished()) {
         int angle;
-        servo[i].posToggle ? angle = ANGLE_MAX : angle = ANGLE_MIN;
-  
-        int ramp_duration = int(1000.0 / servo[i].freq);
-  
-        servo[i].posRamp.go(angle, ramp_duration, LINEAR);
-        servo[i].posToggle = !servo[i].posToggle;
+        servo[i].Direction ? angle = ANGLE_MAX : angle = ANGLE_MIN;
+
+        // 2. If sync or stop, wait for servo to arrive at min angle
+        if ((syncServos || stopServos) && angle == ANGLE_MAX) {
+          if (!servoPaused) {
+            servo[i].posRamp.pause();
+          }
+        }
+
+        // 3. Else, continue moving and start a new ramp in opposite direction
+        else {
+          int ramp_duration = int(1000.0 / servo[i].freq);
+
+          servo[i].posRamp.go(angle, ramp_duration, LINEAR);
+          servo[i].Direction = !servo[i].Direction;
+        }
       }
-      
-//      Serial.println(servo[i].posRamp.getValue());
-      int PWM = map(servo[i].posRamp.getValue(), 0, 180, PWM_MIN, PWM_MAX);
+
+      // 4. Map angle to PWM value
+      int PWM = map(servo[i].posRamp.getValue(), 0, 180, PWM_MIN[i], PWM_MAX[i]);
       servoShield.setPWM(i, 0, PWM);
     }
   }
-}
 
-
-void parseMsgFromMax() {
-  // first char is servo ID
-  int ID = Serial.read();
-
-  if (ID >= 0 && ID < numServo) {
-    // second two chars are servo frequency
-    int hundreds = Serial.read();
-    int tenths = Serial.read();
-
-    float frequency = hundreds + (tenths / 100.0);
-
-    if (frequency > 0.0) {
-      servo[ID].freq = frequency;
-
-      // percentage of ramp still to go
-      float ramp_percentage = fabs(servo[ID].posRamp.getValue() - servo[ID].posRamp.getTarget()) / float(ANGLE_MAX-ANGLE_MIN);
-
-      int ramp_duration = int(1000.0 / servo[ID].freq * ramp_percentage);
-
-      // continue the ramp with new frequency
-      servo[ID].posRamp.go(servo[ID].posRamp.getTarget(), ramp_duration, LINEAR);
+  if (allPaused) {
+    if (stopServos) {
+      stopServos = false;
     }
-    else {
-      servo[ID].posRamp.pause();
+    else if (syncServos) {
+      syncServos = false;
+
+      for (int i = 0; i < numServo; i++) {
+        servo[i].posRamp.resume();
+//        Serial.println(servo[i].Direction);
+      }
     }
   }
 }
 
+void parseServoMsg() {
+  /*
+    Servo message: 3 bytes
+     - first byte is servo ID
+     - second two bytes together is servo frequency
+  */
+
+  char bytes[3];
+  Serial.readBytes(bytes, 3);
+
+  int ID = bytes[0];
+
+  if (ID >= 0 && ID <= numServo) {
+    int hundreds = bytes[1];
+    int tenths = bytes[2];
+
+    float frequency = hundreds + (tenths / 100.0);
+
+    // Set servo[ID] to freq and start
+    if (ID < numServo) {
+      setServo(ID, frequency);
+    }
+    // if ID = numServo, set all servos
+    else if (ID == numServo) {
+      Serial.println("Set all servos");
+      for (int i = 0; i < numServo; i++) {
+        setServo(i, frequency);
+      }
+    }
+  }
+}
+
+void setServo(int ID, float frequency) {
+//  Serial.print("Servo ");
+//  Serial.print(ID);
+//  Serial.print(", ");
+//  Serial.println(frequency);
+  
+  if (frequency > 0.0) {
+    servo[ID].freq = frequency;
+
+    // 1. Percentage of ramp still to go
+    float ramp_percentage = fabs(servo[ID].posRamp.getValue() - servo[ID].posRamp.getTarget()) / float(ANGLE_MAX - ANGLE_MIN);
+
+    // 2. Get new duration from frequency
+    int ramp_duration = int(1000.0 / servo[ID].freq * ramp_percentage);
+
+    // 3. Continue the ramp with new duration
+    servo[ID].posRamp.go(servo[ID].posRamp.getTarget(), ramp_duration, LINEAR);
+  }
+  // Frequency <= 0 means stop
+  else {
+    servo[ID].posRamp.pause();
+  }
+}
+
+//----------------------------------------------------//
 
 
-
-void test_run() {
+void testRun() {
   int delay_time = 1000;
   boolean control_PWM = true; // pwm or us
 
@@ -109,30 +189,33 @@ void test_run() {
   const int USMIN = 500; // microseconds
   const int USMAX = 2400;
 
-  for (int s = 0; s < numServo; s++) {
+  while (true) {
+    Serial.println("HI");
+    for (int i = 0; i < numServo; i++) {
 
-    if (control_PWM) {
-      for (int i = PWM_MIN; i < PWM_MAX; i++) {
-        servoShield.setPWM(s, 0, i);
-      }
-      delay(delay_time);
+      if (control_PWM) {
+        for (int j = PWM_MIN[i]; j < PWM_MAX[i]; j++) {
+          servoShield.setPWM(i, 0, j);
+        }
+        delay(delay_time);
 
-      for (int i = PWM_MAX; i >= PWM_MIN; i--) {
-        servoShield.setPWM(s, 0, i);
+        for (int j = PWM_MAX[i]; j >= PWM_MIN[i]; j--) {
+          servoShield.setPWM(i, 0, j);
+        }
+        delay(delay_time);
       }
-      delay(delay_time);
-    }
 
-    else {
-      for (int i = USMIN; i < USMAX; i++) {
-        servoShield.writeMicroseconds(s, i);
-      }
-      delay(delay_time);
+      else {
+        for (int j = USMIN; j < USMAX; j++) {
+          servoShield.writeMicroseconds(i, j);
+        }
+        delay(delay_time);
 
-      for (int i = USMAX; i >= USMIN; i--) {
-        servoShield.writeMicroseconds(s, i);
+        for (int j = USMAX; j >= USMIN; j--) {
+          servoShield.writeMicroseconds(i, j);
+        }
+        delay(delay_time);
       }
-      delay(delay_time);
     }
   }
 }

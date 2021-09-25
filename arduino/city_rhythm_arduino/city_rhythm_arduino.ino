@@ -11,23 +11,21 @@
 Adafruit_PWMServoDriver servoShield = Adafruit_PWMServoDriver();
 
 const int numServo = 2;
-
-const int PWM_MIN[numServo] = {75, 100};
-const int PWM_MAX[numServo] = {550, 450};
-
-const int SERVO_FREQ = 50; // to do: set this to frequency specific for servo?
-
+const int PWM_VAL[numServo][2] = {  {75, 550}, // servo {minPWM, maxPWM}
+                                    {100, 450} 
+                                 };
+const int SERVO_FREQ = 50;       // To do: set this to frequency specific for servo?
 const int ANGLE_MIN = 0;
 const int ANGLE_MAX = 180;
 
 
-struct _Servo {
+struct CityRhythmServo {
   float freq;     // Hz
   boolean Direction;
   ramp posRamp;
 };
 
-_Servo servo[numServo];
+CityRhythmServo servo[numServo];
 
 enum messageType { MSG_STOP = 253, MSG_SYNC, MSG_SERVO };
 boolean syncServos = false;
@@ -102,7 +100,7 @@ void loop() {
       }
 
       // 4. Map angle to PWM value
-      int PWM = map(servo[i].posRamp.getValue(), 0, 180, PWM_MIN[i], PWM_MAX[i]);
+      int PWM = map(servo[i].posRamp.getValue(), 0, 180, PWM_VAL[i][0], PWM_VAL[i][1]);
       servoShield.setPWM(i, 0, PWM);
     }
   }
@@ -194,12 +192,12 @@ void testRun() {
     for (int i = 0; i < numServo; i++) {
 
       if (control_PWM) {
-        for (int j = PWM_MIN[i]; j < PWM_MAX[i]; j++) {
+        for (int j = PWM_VAL[i][0]; j < PWM_VAL[i][1]; j++) {
           servoShield.setPWM(i, 0, j);
         }
         delay(delay_time);
 
-        for (int j = PWM_MAX[i]; j >= PWM_MIN[i]; j--) {
+        for (int j = PWM_VAL[i][1]; j >= PWM_VAL[i][0]; j--) {
           servoShield.setPWM(i, 0, j);
         }
         delay(delay_time);

@@ -12,7 +12,7 @@ Adafruit_PWMServoDriver servoShield = Adafruit_PWMServoDriver();
 
 const int numServo = 2;
 const int PWM_VAL[numServo][2] = {  {75, 550}, // servo {minPWM, maxPWM}
-  {100, 450}
+                                    {100, 450}
 };
 const int SERVO_FREQ = 50;       // To do: set this to frequency specific for servo?
 const int ANGLE_MIN = 0;
@@ -165,7 +165,7 @@ void setServo(int ID, float frequency) {
     servo[ID].freq = frequency;
 
     // 1. Percentage of ramp still to go
-    float ramp_percentage = fabs(servo[ID].posRamp.getValue() - servo[ID].posRamp.getTarget()) / float(ANGLE_MAX - ANGLE_MIN);
+    float ramp_percentage = abs(servo[ID].posRamp.getValue() - servo[ID].posRamp.getTarget()) / float(ANGLE_MAX - ANGLE_MIN); // abs() or fabs()? <---------
 
     // 2. Get new duration from frequency
     int ramp_duration = int(1000.0 / servo[ID].freq * ramp_percentage);

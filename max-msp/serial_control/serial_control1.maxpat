@@ -57,7 +57,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 325.0, 213.0, 48.0, 22.0 ],
+					"patching_rect" : [ 381.5, 187.0, 48.0, 22.0 ],
 					"text" : "max $1"
 				}
 
@@ -69,7 +69,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 325.0, 181.0, 71.0, 22.0 ],
+					"patching_rect" : [ 381.5, 155.0, 71.0, 22.0 ],
 					"text" : "r numServo"
 				}
 
@@ -127,7 +127,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 381.5, 215.0, 55.0, 20.0 ],
+					"patching_rect" : [ 381.5, 214.0, 55.0, 20.0 ],
 					"text" : "Servo ID"
 				}
 
@@ -895,7 +895,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 418.75, 116.144095599651337, 36.0, 20.0 ],
+					"patching_rect" : [ 334.75, 21.5, 36.0, 20.0 ],
 					"text" : "stop"
 				}
 
@@ -907,7 +907,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 422.0, 138.144095599651337, 29.5, 22.0 ],
+					"patching_rect" : [ 338.0, 43.5, 29.5, 22.0 ],
 					"text" : "0"
 				}
 

@@ -1,94 +1,74 @@
 // adafruit shield:   https://learn.adafruit.com/adafruit-16-channel-pwm-slash-servo-shield/using-the-adafruit-library
 // tinytronics servo: https://www.tinytronics.nl/shop/nl/mechanica-en-actuatoren/motoren/servomotoren/mg996r-servo
 
-#include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
 
 Adafruit_PWMServoDriver servoShield = Adafruit_PWMServoDriver();
 
-const int PWM_MIN = 75;
-const int PWM_MAX = 550;
+const int numServo = 16;
+const int PWM_VAL[numServo][2] = {  {75, 550}, // servo {minPWM, maxPWM}
+                                    {100, 450}
+};
+const int ANGLE_MIN = 0;
+const int ANGLE_MAX = 180;
 
-// specs tinytronics:
-const int USMIN = 500; // microseconds (us)
-const int USMAX = 2400;
+const unsigned long BAUDRATE = 230400;
 
-int angle_min = 0;
-int angle_max = 180;
+byte angle[numServo];
 
-const int numServo = 10;
+enum SerialModes {
+  SEPERATE, LIST
+};
 
-byte serialData[numServo];
-byte serialCount = 0;
+int serialMode = LIST;
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(BAUDRATE);
 
   servoShield.begin();
   servoShield.setPWMFreq(50);
 
   for (int i = 0; i < numServo; i++) {
-    serialData[i] = 0;
+    angle[i] = 0;
   }
-  yield();
 }
 
 
-
 void loop() {
-  if (Serial.available() > 0) {
-    byte incomingByte = Serial.read();
-
-    if (incomingByte == 255) {
-      serialCount = 0;
-    }
-
-    else {
-      int pwm = map(incomingByte, 0, 180, PWM_MIN, PWM_MAX);
-
-      servoShield.setPWM(serialCount, 0, pwm);
-
-      serialData[serialCount] = incomingByte;
-      serialCount++;
-    }
+  if (serialMode == SEPERATE) {
+    receiveIndivualServo();
+  }
+  else if (serialMode == LIST) {
+    receiveServoList();
   }
 
   for (int i = 0; i < numServo; i++) {
-    Serial.print(serialData[i]);
+    Serial.print(angle[i]);
     Serial.print(",");
   }
   Serial.println();
 }
 
+void receiveIndivualServo() {
+  if (Serial.available() >= 2) {
+    int ID = Serial.read();
 
-void test_run() {
-  int delay_time = 1000;
-  boolean control_PWM = true; // pwm or us
+    if (ID >= 0 && ID < numServo) {
+      angle[ID] = Serial.read();
 
-  for (int s = 0; s < numServo; s++) {
-
-    if (control_PWM) {
-      for (int i = PWM_MIN; i < PWM_MAX; i++) {
-        servoShield.setPWM(s, 0, i);
-      }
-      delay(delay_time);
-
-      for (int i = PWM_MAX; i >= PWM_MIN; i--) {
-        servoShield.setPWM(s, 0, i);
-      }
-      delay(delay_time);
+      int pwm = map(angle[ID], 0, 180, PWM_VAL[ID][0], PWM_VAL[ID][1]);
+      servoShield.setPWM(ID, 0, pwm);
     }
+  }
+}
 
-    else {
-      for (int i = USMIN; i < USMAX; i++) {
-        servoShield.writeMicroseconds(s, i);
-      }
-      delay(delay_time);
+void receiveServoList() {
+  if (Serial.available() >= numServo) {
+    Serial.readBytes(angle, numServo);
 
-      for (int i = USMAX; i >= USMIN; i--) {
-        servoShield.writeMicroseconds(s, i);
-      }
-      delay(delay_time);
+    for (int i = 0; i < numServo; i++) {
+      int pwm = map(angle[i], 0, 180, PWM_VAL[i][0], PWM_VAL[i][1]);
+      servoShield.setPWM(i, 0, pwm);
     }
   }
 }

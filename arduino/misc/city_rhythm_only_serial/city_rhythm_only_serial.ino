@@ -6,7 +6,7 @@
 Adafruit_PWMServoDriver servoShield = Adafruit_PWMServoDriver();
 
 const int numServo = 16;
-const int PWM_VAL[numServo][2] = {  {75, 550}, // servo {minPWM, maxPWM}
+const int PWM_VAL[numServo][2] = {  {100, 450}, // servo {minPWM, maxPWM}
                                     {100, 450}
 };
 const int ANGLE_MIN = 0;
@@ -41,12 +41,12 @@ void loop() {
   else if (serialMode == LIST) {
     receiveServoList();
   }
-
-  for (int i = 0; i < numServo; i++) {
-    Serial.print(angle[i]);
-    Serial.print(",");
-  }
-  Serial.println();
+//
+//  for (int i = 0; i < numServo; i++) {
+//    Serial.print(angle[i]);
+//    Serial.print(",");
+//  }
+//  Serial.println();
 }
 
 void receiveIndivualServo() {

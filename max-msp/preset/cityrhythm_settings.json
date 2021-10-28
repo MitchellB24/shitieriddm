@@ -1,0 +1,30 @@
+{
+	"pattrstorage" : 	{
+		"name" : "city_rhtyhm_settings",
+		"slots" : 		{
+			"1" : 			{
+				"id" : 1,
+				"data" : 				{
+					"binary_threshold" : [ 121 ],
+					"blur_radius" : [ 1.0 ],
+					"brightness" : [ 5.0 ],
+					"enable_binary" : [ 1 ],
+					"enable_framedif" : [ 0 ],
+					"enable_invert" : [ 1 ],
+					"maxBlobDist" : [ 2 ],
+					"minBlobSize" : [ 50 ],
+					"pre_smooth" : [ 0.294 ],
+					"vel_offset" : [ 0.0 ],
+					"vel_scale" : [ 5.2 ],
+					"vel_smooth" : [ 1.0 ],
+					"vel_stableframes" : [ 0 ],
+					"numBobs" : [ 2 ]
+				}
+
+			}
+
+		}
+
+	}
+
+}

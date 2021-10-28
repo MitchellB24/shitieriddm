@@ -8,11 +8,18 @@
 #include <Ramp.h>
 #include <Servo.h>
 
+<<<<<<< Updated upstream
 const int PWM_MIN = 75;
 const int PWM_MAX = 550;
+=======
+Adafruit_PWMServoDriver servoShield = Adafruit_PWMServoDriver();
 
-int ANGLE_MIN = 0;
-int ANGLE_MAX = 180;
+const int PWM_MIN = 75;  // 75
+const int PWM_MAX = 550;  //550
+>>>>>>> Stashed changes
+
+int ANGLE_MIN = 20;
+int ANGLE_MAX = 90;
 
 const int numServo = 1;
 
@@ -30,7 +37,7 @@ Servo myservo;
 void setup() {
   Serial.begin(115200);
   
-  myservo.attach(9);
+  myservo.attach(9,500,2500);
 
   for (int i = 0; i < numServo; i++) {
     servo[i].freq = 1.0;
@@ -41,6 +48,7 @@ void setup() {
 
 
 void loop() {
+  
   if (Serial.available() >= 3) {
     parseMsgFromMax();
   }

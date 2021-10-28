@@ -4084,20 +4084,20 @@
 					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 906.0, 143.0, 56.0, 22.0 ],
 					"restore" : 					{
-						"binary_threshold" : [ 121 ],
+						"binary_threshold" : [ 90 ],
 						"blur_radius" : [ 1.0 ],
 						"brightness" : [ 5.0 ],
 						"enable_binary" : [ 1 ],
 						"enable_framedif" : [ 0 ],
 						"enable_invert" : [ 1 ],
-						"maxBlobDist" : [ 2 ],
+						"maxBlobDist" : [ 20 ],
 						"minBlobSize" : [ 50 ],
-						"numBobs" : [ 2 ],
+						"numBobs" : [ 1 ],
 						"pre_smooth" : [ 0.294 ],
 						"vel_offset" : [ 0.0 ],
-						"vel_scale" : [ 5.2 ],
-						"vel_smooth" : [ 1.0 ],
-						"vel_stableframes" : [ 0 ]
+						"vel_scale" : [ 50.0 ],
+						"vel_smooth" : [ 10.0 ],
+						"vel_stableframes" : [ 5 ]
 					}
 ,
 					"text" : "autopattr",

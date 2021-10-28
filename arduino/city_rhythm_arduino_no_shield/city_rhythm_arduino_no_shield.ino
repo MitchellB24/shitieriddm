@@ -8,15 +8,8 @@
 #include <Ramp.h>
 #include <Servo.h>
 
-<<<<<<< Updated upstream
 const int PWM_MIN = 75;
 const int PWM_MAX = 550;
-=======
-Adafruit_PWMServoDriver servoShield = Adafruit_PWMServoDriver();
-
-const int PWM_MIN = 75;  // 75
-const int PWM_MAX = 550;  //550
->>>>>>> Stashed changes
 
 int ANGLE_MIN = 20;
 int ANGLE_MAX = 90;

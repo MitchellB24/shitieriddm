@@ -6,19 +6,48 @@
 				"id" : 1,
 				"data" : 				{
 					"binary_threshold" : [ 90 ],
-					"blur_radius" : [ 1.0 ],
-					"brightness" : [ 5.0 ],
+					"blur_radius" : [ 2.0 ],
+					"contrast" : [  ],
+					"cv_touch_radius" : [  ],
+					"cv_touch_threshold" : [  ],
 					"enable_binary" : [ 1 ],
 					"enable_framedif" : [ 0 ],
 					"enable_invert" : [ 1 ],
-					"maxBlobDist" : [ 20 ],
-					"minBlobSize" : [ 50 ],
-					"numBobs" : [ 1 ],
-					"pre_smooth" : [ 0.294 ],
+					"numBlobs" : [  ],
+					"pre_smooth" : [ 0.0 ],
+					"track_vel" : [  ],
 					"vel_offset" : [ 0.0 ],
-					"vel_scale" : [ 50.0 ],
+					"vel_scale" : [ 12.0 ],
 					"vel_smooth" : [ 10.0 ],
-					"vel_stableframes" : [ 5 ]
+					"vel_stableframes" : [ 10 ],
+					"brightness" : [  ],
+					"movie_chromakey::chromakey_bg" : [  ],
+					"movie_chromakey::chromakey_tolerance" : [  ]
+				}
+
+			}
+,
+			"2" : 			{
+				"id" : 2,
+				"data" : 				{
+					"binary_threshold" : [ 100 ],
+					"blur_radius" : [ 6.0 ],
+					"contrast" : [ 36.0 ],
+					"cv_touch_radius" : [ 15.0 ],
+					"cv_touch_threshold" : [ 50.0 ],
+					"enable_binary" : [ 0 ],
+					"enable_framedif" : [ 0 ],
+					"enable_invert" : [ 0 ],
+					"numBlobs" : [ 2 ],
+					"pre_smooth" : [ 0.0 ],
+					"track_vel" : [ 1 ],
+					"vel_offset" : [ 0.0 ],
+					"vel_scale" : [ 10.0 ],
+					"vel_smooth" : [ 5.0 ],
+					"vel_stableframes" : [ 5 ],
+					"brightness" : [ 0.0 ],
+					"movie_chromakey::chromakey_bg" : [ 0.901960784313726, 0.909803921568627, 0.898039215686275, 1.0, 0.27843137254902, 0.058823529411765, 0.905882352941176 ],
+					"movie_chromakey::chromakey_tolerance" : [ 0.9 ]
 				}
 
 			}

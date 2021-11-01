@@ -5,7 +5,7 @@
 			"1" : 			{
 				"id" : 1,
 				"data" : 				{
-					"binary_threshold" : [ 150 ],
+					"binary_threshold" : [ 200 ],
 					"blur_radius" : [ 3.0 ],
 					"brightness" : [ 0.1 ],
 					"contrast" : [ 10.0 ],
@@ -17,9 +17,10 @@
 					"numBobs" : [ 1 ],
 					"pre_smooth" : [ 0.0 ],
 					"vel_offset" : [ 0.0 ],
-					"vel_scale" : [ 2.0 ],
-					"vel_smooth" : [ 7.0 ],
-					"vel_stableframes" : [ 0 ]
+					"vel_scale" : [ 5.0 ],
+					"vel_smooth" : [ 10.0 ],
+					"vel_stableframes" : [ 2 ],
+					"vel_track" : [ 1 ]
 				}
 
 			}
@@ -41,7 +42,8 @@
 					"vel_offset" : [ 0.0 ],
 					"vel_scale" : [ 10.0 ],
 					"vel_smooth" : [ 5.0 ],
-					"vel_stableframes" : [ 10 ]
+					"vel_stableframes" : [ 10 ],
+					"vel_track" : [  ]
 				}
 
 			}

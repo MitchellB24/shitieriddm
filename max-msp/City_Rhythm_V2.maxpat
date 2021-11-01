@@ -321,7 +321,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 278.666666666666686, 320.799999999999955, 59.0, 22.0 ],
+					"patching_rect" : [ 273.666666666666686, 320.799999999999955, 59.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"embed" : 0,
 						"precision" : 6
@@ -657,8 +657,8 @@
 						"pre_smooth" : [ 0.0 ],
 						"track_vel" : [ 1 ],
 						"vel_offset" : [ 0.0 ],
-						"vel_scale" : [ 20.0 ],
-						"vel_smooth" : [ 20.0 ],
+						"vel_scale" : [ 10.0 ],
+						"vel_smooth" : [ 5.0 ],
 						"vel_stableframes" : [ 10 ]
 					}
 ,

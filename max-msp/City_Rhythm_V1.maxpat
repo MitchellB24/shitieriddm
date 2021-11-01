@@ -75,7 +75,8 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 456.0, 385.25, 24.0, 24.0 ]
+					"patching_rect" : [ 456.0, 385.25, 24.0, 24.0 ],
+					"varname" : "vel_track"
 				}
 
 			}
@@ -285,11 +286,12 @@
 , 							{
 								"box" : 								{
 									"id" : "obj-22",
+									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 978.0, 304.0, 91.0, 20.0 ],
-									"text" : "old--------------"
+									"patching_rect" : [ 973.5, 286.0, 91.0, 33.0 ],
+									"text" : "even older--------------"
 								}
 
 							}
@@ -1287,7 +1289,6 @@
 					}
 ,
 					"patching_rect" : [ 102.0, 504.75, 122.0, 22.0 ],
-					"presentation_linecount" : 3,
 					"saved_object_attributes" : 					{
 						"description" : "",
 						"digest" : "",
@@ -7271,7 +7272,7 @@
 					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 906.0, 143.0, 56.0, 22.0 ],
 					"restore" : 					{
-						"binary_threshold" : [ 150 ],
+						"binary_threshold" : [ 200 ],
 						"blur_radius" : [ 3.0 ],
 						"brightness" : [ 0.1 ],
 						"contrast" : [ 10.0 ],
@@ -7283,9 +7284,10 @@
 						"numBobs" : [ 1 ],
 						"pre_smooth" : [ 0.0 ],
 						"vel_offset" : [ 0.0 ],
-						"vel_scale" : [ 2.0 ],
-						"vel_smooth" : [ 7.0 ],
-						"vel_stableframes" : [ 0 ]
+						"vel_scale" : [ 5.0 ],
+						"vel_smooth" : [ 10.0 ],
+						"vel_stableframes" : [ 2 ],
+						"vel_track" : [ 1 ]
 					}
 ,
 					"text" : "autopattr",
@@ -8275,7 +8277,6 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 564.0, 586.0, 205.0, 20.0 ],
-									"presentation_linecount" : 2,
 									"text" : " Store blobs in a coll, as: {ID, x, y}",
 									"textjustification" : 1
 								}
@@ -8452,7 +8453,6 @@
 																	"numinlets" : 1,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 237.0, 329.0, 129.5, 33.0 ],
-																	"presentation_linecount" : 2,
 																	"text" : "For every pair of x,y values get the ID"
 																}
 
@@ -8465,7 +8465,6 @@
 																	"numinlets" : 1,
 																	"numoutlets" : 0,
 																	"patching_rect" : [ 422.0, 512.0, 129.5, 20.0 ],
-																	"presentation_linecount" : 6,
 																	"text" : "ID, x,y for every blob"
 																}
 
@@ -10887,10 +10886,6 @@
 			}
 , 			{
 				"name" : "cv.jit.blur.mxo",
-				"type" : "iLaX"
-			}
-, 			{
-				"name" : "jit.!pass.mxo",
 				"type" : "iLaX"
 			}
  ],

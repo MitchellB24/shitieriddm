@@ -1286,7 +1286,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 213.5, 508.0, 122.0, 22.0 ],
+					"patching_rect" : [ 102.0, 504.75, 122.0, 22.0 ],
 					"presentation_linecount" : 3,
 					"saved_object_attributes" : 					{
 						"description" : "",
@@ -8267,7 +8267,6 @@
 						"style" : "",
 						"subpatcher_template" : "",
 						"assistshowspatchername" : 0,
-						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],

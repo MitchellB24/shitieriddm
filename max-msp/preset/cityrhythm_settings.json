@@ -12,14 +12,14 @@
 					"enable_binary" : [ 1 ],
 					"enable_framedif" : [ 0 ],
 					"enable_invert" : [ 0 ],
-					"maxBlobDist" : [ 10 ],
-					"minBlobSize" : [ 102 ],
+					"maxBlobDist" : [ 40 ],
+					"minBlobSize" : [ 100 ],
 					"numBobs" : [ 1 ],
 					"pre_smooth" : [ 0.0 ],
 					"vel_offset" : [ 0.0 ],
 					"vel_scale" : [ 5.0 ],
-					"vel_smooth" : [ 10.0 ],
-					"vel_stableframes" : [ 2 ],
+					"vel_smooth" : [ 20.0 ],
+					"vel_stableframes" : [ 3 ],
 					"vel_track" : [ 1 ]
 				}
 

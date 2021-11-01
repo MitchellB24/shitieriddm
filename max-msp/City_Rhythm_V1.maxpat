@@ -45,13 +45,13 @@
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
-					"patching_rect" : [ 566.0, 482.75, 59.0, 22.0 ],
+					"patching_rect" : [ 566.0, 482.75, 78.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"embed" : 0,
 						"precision" : 6
 					}
 ,
-					"text" : "coll blobs"
+					"text" : "coll blobs_v1"
 				}
 
 			}
@@ -7285,8 +7285,8 @@
 						"pre_smooth" : [ 0.0 ],
 						"vel_offset" : [ 0.0 ],
 						"vel_scale" : [ 5.0 ],
-						"vel_smooth" : [ 20.0 ],
-						"vel_stableframes" : [ 5 ],
+						"vel_smooth" : [ 10.0 ],
+						"vel_stableframes" : [ 0 ],
 						"vel_track" : [ 1 ]
 					}
 ,
@@ -7564,13 +7564,13 @@
 									"numinlets" : 1,
 									"numoutlets" : 4,
 									"outlettype" : [ "", "", "", "" ],
-									"patching_rect" : [ 411.666666666666686, 194.200000000000045, 59.0, 22.0 ],
+									"patching_rect" : [ 411.666666666666686, 194.200000000000045, 78.0, 22.0 ],
 									"saved_object_attributes" : 									{
 										"embed" : 0,
 										"precision" : 6
 									}
 ,
-									"text" : "coll blobs"
+									"text" : "coll blobs_v1"
 								}
 
 							}
@@ -8982,7 +8982,7 @@
 														"precision" : 6
 													}
 ,
-													"text" : "coll blobs"
+													"text" : "coll blobs_v1"
 												}
 
 											}
@@ -9017,13 +9017,13 @@
 													"numinlets" : 1,
 													"numoutlets" : 4,
 													"outlettype" : [ "", "", "", "" ],
-													"patching_rect" : [ 419.5, 268.0, 59.0, 22.0 ],
+													"patching_rect" : [ 419.5, 268.0, 78.0, 22.0 ],
 													"saved_object_attributes" : 													{
 														"embed" : 0,
 														"precision" : 6
 													}
 ,
-													"text" : "coll blobs"
+													"text" : "coll blobs_v1"
 												}
 
 											}
@@ -9152,13 +9152,13 @@
 																	"numinlets" : 1,
 																	"numoutlets" : 4,
 																	"outlettype" : [ "", "", "", "" ],
-																	"patching_rect" : [ 414.0, 198.5, 59.0, 22.0 ],
+																	"patching_rect" : [ 414.0, 198.5, 78.0, 22.0 ],
 																	"saved_object_attributes" : 																	{
 																		"embed" : 0,
 																		"precision" : 6
 																	}
 ,
-																	"text" : "coll blobs"
+																	"text" : "coll blobs_v1"
 																}
 
 															}
@@ -9169,13 +9169,13 @@
 																	"numinlets" : 1,
 																	"numoutlets" : 4,
 																	"outlettype" : [ "", "", "", "" ],
-																	"patching_rect" : [ 427.333333333333258, 403.5, 59.0, 22.0 ],
+																	"patching_rect" : [ 427.333333333333258, 403.5, 78.0, 22.0 ],
 																	"saved_object_attributes" : 																	{
 																		"embed" : 0,
 																		"precision" : 6
 																	}
 ,
-																	"text" : "coll blobs"
+																	"text" : "coll blobs_v1"
 																}
 
 															}
@@ -9222,13 +9222,13 @@
 																	"numinlets" : 1,
 																	"numoutlets" : 4,
 																	"outlettype" : [ "", "", "", "" ],
-																	"patching_rect" : [ 519.5, 194.5, 59.0, 22.0 ],
+																	"patching_rect" : [ 519.5, 194.5, 78.0, 22.0 ],
 																	"saved_object_attributes" : 																	{
 																		"embed" : 0,
 																		"precision" : 6
 																	}
 ,
-																	"text" : "coll blobs"
+																	"text" : "coll blobs_v1"
 																}
 
 															}
@@ -9354,6 +9354,25 @@
 																	"source" : [ "obj-81", 0 ]
 																}
 
+															}
+ ],
+														"styles" : [ 															{
+																"name" : "AudioStatus_Menu",
+																"default" : 																{
+																	"bgfillcolor" : 																	{
+																		"type" : "color",
+																		"color" : [ 0.294118, 0.313726, 0.337255, 1 ],
+																		"color1" : [ 0.454902, 0.462745, 0.482353, 0.0 ],
+																		"color2" : [ 0.290196, 0.309804, 0.301961, 1.0 ],
+																		"angle" : 270.0,
+																		"proportion" : 0.39,
+																		"autogradient" : 0
+																	}
+
+																}
+,
+																"parentstyle" : "",
+																"multi" : 0
 															}
  ]
 													}

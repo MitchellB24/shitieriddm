@@ -40,6 +40,18 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-7",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 498.0, 554.0, 29.5, 22.0 ],
+					"text" : "0"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-78",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -7272,21 +7284,21 @@
 					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 906.0, 143.0, 56.0, 22.0 ],
 					"restore" : 					{
-						"binary_threshold" : [ 200 ],
-						"blur_radius" : [ 3.0 ],
-						"brightness" : [ 0.1 ],
-						"contrast" : [ 10.0 ],
+						"binary_threshold" : [ 102 ],
+						"blur_radius" : [ 5.3 ],
+						"brightness" : [ 0.495 ],
+						"contrast" : [ 1581.0 ],
 						"enable_binary" : [ 1 ],
-						"enable_framedif" : [ 0 ],
-						"enable_invert" : [ 0 ],
-						"maxBlobDist" : [ 40 ],
-						"minBlobSize" : [ 102 ],
-						"numBobs" : [ 1 ],
+						"enable_framedif" : [ 1 ],
+						"enable_invert" : [ 1 ],
+						"maxBlobDist" : [ 10 ],
+						"minBlobSize" : [ 100 ],
+						"numBobs" : [ 5 ],
 						"pre_smooth" : [ 0.0 ],
 						"vel_offset" : [ 0.0 ],
-						"vel_scale" : [ 5.0 ],
+						"vel_scale" : [ 2.0 ],
 						"vel_smooth" : [ 10.0 ],
-						"vel_stableframes" : [ 0 ],
+						"vel_stableframes" : [ 10 ],
 						"vel_track" : [ 1 ]
 					}
 ,
@@ -10735,6 +10747,13 @@
 				"patchline" : 				{
 					"destination" : [ "obj-36", 0 ],
 					"source" : [ "obj-68", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-171", 0 ],
+					"source" : [ "obj-7", 0 ]
 				}
 
 			}

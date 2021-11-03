@@ -5,22 +5,21 @@
 			"1" : 			{
 				"id" : 1,
 				"data" : 				{
-					"bg_threshold" : [  ],
-					"blur_radius" : [ 3.0 ],
-					"brightness" : [ 0.1 ],
-					"chromakey_bg" : [  ],
-					"contrast" : [ 10.0 ],
-					"cv_touch_radius" : [  ],
-					"cv_touch_threshold" : [  ],
+					"binary_threshold" : [ 90 ],
+					"blur_radius" : [ 2.0 ],
+					"brightness" : [ 0.0 ],
+					"contrast" : [ 4.99 ],
+					"enable_binary" : [ 1 ],
 					"enable_framedif" : [ 0 ],
-					"enable_invert" : [ 0 ],
-					"numBlobs" : [  ],
+					"enable_invert" : [ 1 ],
+					"maxBlobDist" : [ 20 ],
+					"minBlobSize" : [ 30 ],
+					"numBobs" : [ 1 ],
 					"pre_smooth" : [ 0.0 ],
-					"track_vel" : [  ],
 					"vel_offset" : [ 0.0 ],
 					"vel_scale" : [ 5.0 ],
-					"vel_smooth" : [ 10.0 ],
-					"vel_stableframes" : [ 0 ]
+					"vel_smooth" : [ 25.0 ],
+					"vel_stableframes" : [ 5 ]
 				}
 
 			}
@@ -28,22 +27,21 @@
 			"2" : 			{
 				"id" : 2,
 				"data" : 				{
-					"bg_threshold" : [ 0.9 ],
+					"binary_threshold" : [  ],
 					"blur_radius" : [ 1.0 ],
 					"brightness" : [ 0.0 ],
-					"chromakey_bg" : [ 0.211764705882353, 0.729411764705882, 0.0, 1.0, 0.282352941176471, 1.0, 0.364705882352941 ],
 					"contrast" : [ 5.0 ],
-					"cv_touch_radius" : [ 15.0 ],
-					"cv_touch_threshold" : [ 100.0 ],
+					"enable_binary" : [  ],
 					"enable_framedif" : [ 0 ],
 					"enable_invert" : [ 0 ],
-					"numBlobs" : [ 1 ],
+					"maxBlobDist" : [  ],
+					"minBlobSize" : [  ],
+					"numBobs" : [  ],
 					"pre_smooth" : [ 0.0 ],
-					"track_vel" : [ 1 ],
 					"vel_offset" : [ 0.0 ],
-					"vel_scale" : [ 5.0 ],
-					"vel_smooth" : [ 5.0 ],
-					"vel_stableframes" : [ 5 ]
+					"vel_scale" : [ 10.0 ],
+					"vel_smooth" : [ 25.0 ],
+					"vel_stableframes" : [ 10 ]
 				}
 
 			}

@@ -6,20 +6,20 @@
 				"id" : 1,
 				"data" : 				{
 					"binary_threshold" : [ 90 ],
-					"blur_radius" : [ 2.0 ],
+					"blur_radius" : [ 1.0 ],
 					"brightness" : [ 0.0 ],
-					"contrast" : [ 4.99 ],
+					"contrast" : [ 2.0 ],
 					"enable_binary" : [ 1 ],
 					"enable_framedif" : [ 0 ],
 					"enable_invert" : [ 1 ],
 					"maxBlobDist" : [ 20 ],
-					"minBlobSize" : [ 30 ],
-					"numBobs" : [ 1 ],
+					"minBlobSize" : [ 50 ],
+					"numBobs" : [ 5 ],
 					"pre_smooth" : [ 0.0 ],
 					"vel_offset" : [ 0.0 ],
-					"vel_scale" : [ 5.0 ],
-					"vel_smooth" : [ 25.0 ],
-					"vel_stableframes" : [ 5 ]
+					"vel_scale" : [ 15.0 ],
+					"vel_smooth" : [ 30.0 ],
+					"vel_stableframes" : [ 15 ]
 				}
 
 			}

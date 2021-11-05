@@ -1,21 +1,15 @@
-/*
-   Ramp library:      https://github.com/siteswapjuggler/RAMP
-   Adafruit shield:   https://learn.adafruit.com/adafruit-16-channel-pwm-slash-servo-shield/using-the-adafruit-library
-   tinytronics servo: https://www.tinytronics.nl/shop/nl/mechanica-en-actuatoren/motoren/servomotoren/mg996r-servo
-*/
-
-
 #include <Ramp.h>
 #include <Adafruit_PWMServoDriver.h>
 #include "city_rhythm_constants.h"
 
 Adafruit_PWMServoDriver servoShield = Adafruit_PWMServoDriver();
+CityRhythmServo servo[numServo];
 
 //-------------------------------------------//
 
 void setup() {
   Serial.begin(BAUDRATE);
-
+  
   servoShield.begin();
   servoShield.setPWMFreq(SERVO_FREQ);
 
@@ -34,6 +28,7 @@ void setup() {
   //  delay(250); // wait for a bit here?
 
   if (testMode) {
+    Serial.println("Starting test run");
     while (true) {
       testRun();
     }
@@ -55,7 +50,7 @@ void loop() {
     }
     else if (msgType == MSG_STOP) {
       stopServos = true;
-      //      Serial.println("stop message");
+//      Serial.println("stop message");
 
       for (int i = 0; i < numServo; i++) {
         servo[i].Stop = true;
@@ -95,14 +90,10 @@ void loop() {
       }
 
       // 4. Map angle to PWM value
-      Serial.print(servo[i].posRamp.getValue());
-      Serial.print(",");
-
       int PWM = map(servo[i].posRamp.getValue(), 0, 180, PWM_VAL[i][0], PWM_VAL[i][1]);
       servoShield.setPWM(i, 0, PWM);
     }
   }
-  Serial.println();
 
   if (allPaused) {
     if (stopServos) {
@@ -146,7 +137,7 @@ void parseServoMsg() {
     }
     // if ID = numServo, set all servos
     else if (ID == numServo) {
-      //      Serial.println("Set all servos");
+//      Serial.println("Set all servos");
       for (int i = 0; i < numServo; i++) {
         setServo(i, frequency);
       }
@@ -155,10 +146,10 @@ void parseServoMsg() {
 }
 
 void setServo(int ID, float frequency) {
-  //  Serial.print("Servo ");
-  //  Serial.print(ID);
-  //  Serial.print(", ");
-  //  Serial.println(frequency);
+//  Serial.print("Servo ");
+//  Serial.print(ID);
+//  Serial.print(", ");
+//  Serial.println(frequency);
 
   if (frequency > 0.0) {
     servo[ID].freq = frequency;
@@ -198,23 +189,27 @@ void parseSyncMsg() {
 
 void testRun() {
   // Function to test min and max PWM values for every servo
-  // It cycles through each servo, toggling between min and max PWM, on a loop
+  // It cycles through each servo, toggling between min and max PWM
 
   int delay_time = 1000;
-  boolean control_PWM = true; // pwm or us
+  boolean controlPWM = true; // PWM or microseconds control
 
   // specs Tinytronics:
   const int USMIN = 500; // microseconds
   const int USMAX = 2400;
 
   for (int i = 0; i < numServo; i++) {
-    if (control_PWM) {
+    if (controlPWM) {
       for (int j = PWM_VAL[i][0]; j < PWM_VAL[i][1]; j++) {
+        Serial.print("PWM: ");
+        Serial.println(j);
         servoShield.setPWM(i, 0, j);
       }
       delay(delay_time);
 
       for (int j = PWM_VAL[i][1]; j >= PWM_VAL[i][0]; j--) {
+        Serial.print("PWM: ");
+        Serial.println(j);
         servoShield.setPWM(i, 0, j);
       }
       delay(delay_time);
@@ -222,11 +217,15 @@ void testRun() {
 
     else {
       for (int j = USMIN; j < USMAX; j++) {
+        Serial.print("US: ");
+        Serial.println(j);
         servoShield.writeMicroseconds(i, j);
       }
       delay(delay_time);
 
       for (int j = USMAX; j >= USMIN; j--) {
+        Serial.print("US: ");
+        Serial.println(j);
         servoShield.writeMicroseconds(i, j);
       }
       delay(delay_time);

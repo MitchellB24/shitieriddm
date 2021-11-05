@@ -149,7 +149,7 @@
 					"outlettype" : [ "", "float" ],
 					"parameter_enable" : 0,
 					"patching_rect" : [ 194.0, 287.0, 112.0, 28.0 ],
-					"saturation" : 0.066666666666667,
+					"saturation" : 1.0,
 					"varname" : "chromakey_bg"
 				}
 
@@ -730,19 +730,19 @@
 					"patching_rect" : [ 8.0, 73.0, 56.0, 22.0 ],
 					"restore" : 					{
 						"bg_threshold" : [ 0.9 ],
-						"blur_radius" : [ 2.0 ],
+						"blur_radius" : [ 1.0 ],
 						"brightness" : [ 0.0 ],
-						"chromakey_bg" : [ 0.882352941176471, 0.894117647058824, 0.87843137254902, 1.0, 0.290196078431373, 0.066666666666667, 0.886274509803922 ],
+						"chromakey_bg" : [ 0.211764705882353, 0.729411764705882, 0.0, 1.0, 0.282352941176471, 1.0, 0.364705882352941 ],
 						"contrast" : [ 5.0 ],
-						"cv_touch_radius" : [ 15.0 ],
-						"cv_touch_threshold" : [ 100.0 ],
+						"cv_touch_radius" : [ 12.0 ],
+						"cv_touch_threshold" : [ 106.0 ],
 						"enable_framedif" : [ 0 ],
 						"enable_invert" : [ 0 ],
 						"numBlobs" : [ 5 ],
 						"pre_smooth" : [ 0.0 ],
 						"vel_offset" : [ 0.0 ],
-						"vel_scale" : [ 70.0 ],
-						"vel_smooth" : [ 40.0 ],
+						"vel_scale" : [ 21.0 ],
+						"vel_smooth" : [ 25.0 ],
 						"vel_stableframes" : [ 10 ]
 					}
 ,
@@ -6992,6 +6992,10 @@
 			}
 , 			{
 				"name" : "cv.jit.blur.mxo",
+				"type" : "iLaX"
+			}
+, 			{
+				"name" : "jit.!pass.mxo",
 				"type" : "iLaX"
 			}
 , 			{

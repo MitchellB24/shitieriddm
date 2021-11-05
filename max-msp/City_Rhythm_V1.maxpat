@@ -6188,7 +6188,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 200.5, 546.090896606445312, 95.0, 20.0 ],
+					"patching_rect" : [ 191.0, 563.090896606445312, 95.0, 20.0 ],
 					"text" : "Blob Centroids"
 				}
 
